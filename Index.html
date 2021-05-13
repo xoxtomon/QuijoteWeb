@@ -82,6 +82,22 @@
 			scene.add( mesh );
 		});
 		
+    //MOLINOS ALEATORIOS
+    for(i = 0; i < 10; i++){
+      loader.load("./OBJS/Molino/model.json", function( group ) {
+		    mesh = group.children[0];
+			  mesh.material = new THREE.MeshNormalMaterial();
+			  
+        mesh.position.x = Math.ceil(Math.random() * 99) * (Math.round(Math.random()) ? 1 : -1) ;
+        //mesh.rotation.x = (Math.PI / 2) * -1;
+
+        mesh.position.z = Math.ceil(Math.random() * 99) * (Math.round(Math.random()) ? 1 : -1) ;
+
+        mesh.scale.set( .05, .05, .05 );
+			  scene.add( mesh );
+		  });
+    }
+
 
     var render = () => {
       requestAnimationFrame( render );
