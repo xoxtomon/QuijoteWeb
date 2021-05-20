@@ -8,12 +8,16 @@
   </head>
   <body>
     
-    <script src="https://threejs.org/build/three.js"></script>
+  <script src="https://threejs.org/build/three.js"></script>
 	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 	
     <script>
     var texture_nube = new THREE.TextureLoader().load( "./OBJS/Nube/textura_nube.jpg" );
 		var texture_normal_nube = new THREE.TextureLoader().load( "./OBJS/Nube/NormalMap.png" );
+
+    //var texture_sol = new THREE.TextureLoader().load( "./OBJS/Sol/textura_.jpg" );
+		var texture_normal_sol = new THREE.TextureLoader().load( "./OBJS/Sol/NormalMap.png" );
+
 		var light = new THREE.DirectionalLight( 0xffffff, 4 );
 		light.position.set( -20, 20, 20 );
 		
@@ -52,11 +56,27 @@
 
 			mesh.position.x = 5;
 
-      mesh.position.y = 3;
+      mesh.position.y = 6;
 
       mesh.scale.set( 1.4, 1.4, 1.4 );
 			scene.add( mesh );
 		});
+
+    //RENDERIZADO QUIJOTE EN CABALLO
+    loader.load("./OBJS/QuijoteCaballo/model.json", (group) => {
+      mesh = group.children[0];
+      mesh.material = new THREE.MeshNormalMaterial();
+
+      mesh.position.x = 5;
+      
+      mesh.position.y = -3;
+      mesh.rotation.y = (Math.PI / 2) * -1;
+
+      mesh.position.z = -2;
+      
+      mesh.scale.set( 3.2, 3.2, 3.2 );
+			scene.add( mesh );
+    });
 
     //RENDERIZADO DEL CABALLERO
     loader.load("./OBJS/Caballero/model.json", function( group ) {
@@ -71,6 +91,23 @@
       mesh.scale.set( .05, .05, .05 );
 			scene.add( mesh );
 		});
+
+    //RENDERIZADO DEL CABALLO
+    loader.load("./OBJS/Horse/model.json", function( group ) {
+		  mesh = group.children[0];
+			mesh.material = new THREE.MeshNormalMaterial();
+
+			mesh.position.x = 1;
+      
+      mesh.position.y = -3;
+      mesh.rotation.y = (Math.PI / 2) * -1;
+
+      mesh.position.z = -3;
+      
+      mesh.scale.set( .0125, .0125, .0125 );
+			scene.add( mesh );
+		});
+
 
     //RENDERIZADO DEL MOLINO
     loader.load("./OBJS/Molino/model.json", function( group ) {
@@ -98,6 +135,89 @@
 		  });
     };
 
+    //RENDERIZADO DEL PLANO
+    loader.load("./OBJS/Plano/model.json", ( group ) => {
+		  mesh = group.children[0];
+			mesh.material = new THREE.MeshNormalMaterial();
+			//mesh.position.x = -2;
+      //mesh.rotation.x = (Math.PI / 2) * -1;
+      mesh.position.y = -3;
+      mesh.scale.set( 10, 10, 10 );
+			scene.add( mesh );
+		});
+
+    //RENDERIZADO MONTAÑA
+    loader.load("./OBJS/Montaña/model.json", (group) => {
+      mesh = group.children[0];
+      mesh.material = new THREE.MeshNormalMaterial();
+
+      //mesh.position.x *= i;
+      mesh.rotation.x = (Math.PI / 2) * -1;
+      
+      //Alineado con plano
+      mesh.position.y = -9.5;
+
+      //Final del plano
+      mesh.position.z = -100;
+      
+      mesh.scale.set( 1, 1.5, 1 );
+			scene.add( mesh );
+    });
+    /*
+    for(i = 1; i <= 5; i++){
+      loader.load("./OBJS/Montaña/model.json", (group) => {
+      mesh = group.children[0];
+      mesh.material = new THREE.MeshNormalMaterial();
+
+      //mesh.position.x *= i;
+      mesh.rotation.x = (Math.PI / 2) * -1;
+      
+      //Alineado con plano
+      mesh.position.y = -9.5;
+
+      //Final del plano
+      mesh.position.z = -100;
+      
+      mesh.scale.set( 1, 1.5, 1 );
+			scene.add( mesh );
+    });
+    }
+    */
+
+    //ARBOL INICIAL
+    loader.load("./OBJS/Arbol/model.json", function( group ) {
+		  mesh = group.children[0];
+			mesh.material = new THREE.MeshNormalMaterial();
+			  
+      mesh.position.x = 4;
+      //mesh.position.x = Math.ceil(Math.random() * 50) * (Math.round(Math.random()) ? 1 : -1) ;
+      //mesh.rotation.x = (Math.PI / 2) * -1;
+
+      mesh.position.y = -3;
+
+      //mesh.position.z = Math.ceil(Math.random() * 50) * (Math.round(Math.random()) ? 1 : -1) ;
+      mesh.position.z = -15;
+
+      mesh.scale.set( .0125, .0125, .0125 );
+			scene.add( mesh );
+		});
+
+    //ARBOLES ALEATORIOS
+    for(i = 0; i < 5; i++){
+      loader.load("./OBJS/Arbol/model.json", function( group ) {
+		  mesh = group.children[0];
+			mesh.material = new THREE.MeshNormalMaterial();
+			  
+      mesh.position.x = Math.ceil(Math.random() * 50) * (Math.round(Math.random()) ? 1 : -1);
+
+      mesh.position.y = -3;
+
+      mesh.position.z = Math.ceil(Math.random() * 50) * (Math.round(Math.random()) ? 1 : -1);
+
+      mesh.scale.set( .0125, .0125, .0125 );
+			scene.add( mesh );
+		});
+    };
 
     var render = () => {
       requestAnimationFrame( render );
